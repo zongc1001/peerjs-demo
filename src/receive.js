@@ -1,5 +1,5 @@
-import peerjs from 'peerjs'
-;(function () {
+import peerjs from 'peerjs';
+(function () {
   var lastPeerId = null
   var peer = null // Own peer object
   var peerId = null
@@ -41,26 +41,65 @@ import peerjs from 'peerjs'
     // })
 
     //连接阿里云服务器的, 配置了ssl
-    peer = new Peer('zc', {
-      host: 'www.zongchen.xyz',
+    peer = new Peer('zccc', {
+      host: 'zongchen.xyz',
       port: 9000,
-      path: '/myapp',
+      path: '/',
       key: 'peerjs',
       secure: true,
       debug: 3,
+      iceServers: [
+        { url: 'stun:stun.turnservers.com:3478' },
+        { url: 'stun:stun01.sipphone.com' },
+        { url: 'stun:stun.ekiga.net' },
+        { url: 'stun:stun.fwdnet.net' },
+        { url: 'stun:stun.ideasip.com' },
+        { url: 'stun:stun.iptel.org' },
+        { url: 'stun:stun.rixtelecom.se' },
+        { url: 'stun:stun.schlund.de' },
+        { url: 'stun:stun.l.google.com:19302' },
+        { url: 'stun:stun1.l.google.com:19302' },
+        { url: 'stun:stun2.l.google.com:19302' },
+        { url: 'stun:stun3.l.google.com:19302' },
+        { url: 'stun:stun4.l.google.com:19302' },
+        { url: 'stun:stunserver.org' },
+        { url: 'stun:stun.softjoys.com' },
+        { url: 'stun:stun.voiparound.com' },
+        { url: 'stun:stun.voipbuster.com' },
+        { url: 'stun:stun.voipstunt.com' },
+        { url: 'stun:stun.voxgratia.org' },
+        { url: 'stun:stun.xten.com' },
+        {
+          url: 'turn:numb.viagenie.ca',
+          credential: 'muazkh',
+          username: 'webrtc@live.com'
+        },
+        {
+          url: 'turn:192.158.29.39:3478?transport=udp',
+          credential: 'JZEOEt2V3Qb0y27GRntt2u2PAYA=',
+          username: '28224511:1379330808'
+        },
+        {
+          url: 'turn:192.158.29.39:3478?transport=tcp',
+          credential: 'JZEOEt2V3Qb0y27GRntt2u2PAYA=',
+          username: '28224511:1379330808'
+        }
+      ]
     })
+
+
     peer.on('open', function (id) {
       // Workaround for peer.reconnect deleting previous id
       if (peer.id === null) {
-        console.log('Received null id from peer open')
-        peer.id = lastPeerId
+        console.log('Received null id from peer open');
+        peer.id = lastPeerId;
       } else {
-        lastPeerId = peer.id
+        lastPeerId = peer.id;
       }
 
-      console.log('ID: ' + peer.id)
-      recvId.innerHTML = 'ID: ' + peer.id
-      status.innerHTML = 'Awaiting connection...'
+      console.log('ID: ' + peer.id);
+      recvId.innerHTML = 'ID: ' + peer.id;
+      status.innerHTML = 'Awaiting connection...';
     })
     peer.on('connection', function (c) {
       // Allow only a single connection
@@ -73,7 +112,7 @@ import peerjs from 'peerjs'
         })
         return
       }
-
+      
       conn = c
       console.log('Connected to: ' + conn.peer)
       status.innerHTML = 'Connected'
@@ -105,7 +144,7 @@ import peerjs from 'peerjs'
    */
   function ready () {
     conn.on('data', function (data) {
-      console.log('Data recieved')
+      console.log('Data recieved: ' + data)
       var cueString = '<span class="cueMsg">Cue: </span>'
       switch (data) {
         case 'Go':
@@ -125,7 +164,7 @@ import peerjs from 'peerjs'
           addMessage(cueString + data)
           break
         default:
-          addMessage('<span class="peerMsg">Peer: </span>' + data)
+          addMessage('<span class="peerMsg">Peer: </span>' + data.action + " at " + data.curTime)
           break
       }
     })
@@ -209,7 +248,10 @@ import peerjs from 'peerjs'
     if (conn && conn.open) {
       var msg = sendMessageBox.value
       sendMessageBox.value = ''
-      conn.send(msg)
+      conn.send({
+        action: msg,
+        curTime: 20
+      })
       console.log('Sent: ' + msg)
       addMessage('<span class="selfMsg">Self: </span>' + msg)
     } else {
