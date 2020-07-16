@@ -70,10 +70,15 @@ import peerjs from 'peerjs';
         { url: 'stun:stun.voxgratia.org' },
         { url: 'stun:stun.xten.com' },
         { url: 'stun:47.95.119.173' },
-        { 
-          url: 'turn:47.95.119.173:3478',
+        {
+          url: 'turn:47.95.119.173:3478?transport=udp',
+          credential: 'JZEOEt2V3Qb0y27GRntt2u2PAYA=',
           username: 'zongchen:onmyown0.',
-          
+        },
+        {
+          url: 'turn:47.95.119.173:3478?transport=tcp',
+          credential: 'JZEOEt2V3Qb0y27GRntt2u2PAYA=',
+          username: 'zongchen:onmyown0.',
         },
         { url: 'turn:homeo@turn.bistri.com:80', credential: 'homeo' },
         {
