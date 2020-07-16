@@ -53,10 +53,10 @@ import peerjs from 'peerjs';
         { url: 'stun:stun.voxgratia.org' },
         { url: 'stun:stun.xten.com' },
         { url: 'stun:47.95.119.173' },
-        {
+        { 
           url: 'turn:47.95.119.173:3478',
-          username: 'zongchen',
-          password: 'onmyown0.',
+          username: 'zongchen:onmyown0.',
+          
         },
         { url: 'turn:homeo@turn.bistri.com:80', credential: 'homeo' },
         {
