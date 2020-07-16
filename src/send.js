@@ -22,7 +22,7 @@ import peerjs from 'peerjs';
    * Sets up callbacks that handle any events related to our
    * peer object.
    */
-  function initialize () {
+  function initialize() {
     // Create own peer object with connection to shared PeerJS server
     peer = new Peer('testsend', {
       host: 'zongchen.xyz',
@@ -52,6 +52,7 @@ import peerjs from 'peerjs';
         { url: 'stun:stun.voipstunt.com' },
         { url: 'stun:stun.voxgratia.org' },
         { url: 'stun:stun.xten.com' },
+        { url: 'turn:homeo@turn.bistri.com:80', credential: 'homeo' },
         {
           url: 'turn:numb.viagenie.ca',
           credential: 'muazkh',
@@ -67,7 +68,8 @@ import peerjs from 'peerjs';
           credential: 'JZEOEt2V3Qb0y27GRntt2u2PAYA=',
           username: '28224511:1379330808'
         }
-      ]
+      ],
+      sdpSemantics: 'unified-plan'
     })
 
     peer.on('open', function (id) {
@@ -116,7 +118,7 @@ import peerjs from 'peerjs';
    * Sets up callbacks that handle any events related to the
    * connection and data received on it.
    */
-  function join () {
+  function join() {
     // Close old connection
     if (conn) {
       conn.close()
@@ -150,7 +152,7 @@ import peerjs from 'peerjs';
    *
    * Would have been easier to use location.hash.
    */
-  function getUrlParam (name) {
+  function getUrlParam(name) {
     name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]')
     var regexS = '[\\?&]' + name + '=([^&#]*)'
     var regex = new RegExp(regexS)
@@ -163,7 +165,7 @@ import peerjs from 'peerjs';
    * Send a signal via the peer connection and add it to the log.
    * This will only occur if the connection is still alive.
    */
-  function signal (sigName) {
+  function signal(sigName) {
     if (conn && conn.open) {
       conn.send(sigName)
       console.log(sigName + ' signal sent')
@@ -186,7 +188,7 @@ import peerjs from 'peerjs';
     signal('Off')
   })
 
-  function addMessage (msg) {
+  function addMessage(msg) {
     var now = new Date()
     var h = now.getHours()
     var m = addZero(now.getMinutes())
@@ -195,7 +197,7 @@ import peerjs from 'peerjs';
     if (h > 12) h -= 12
     else if (h === 0) h = 12
 
-    function addZero (t) {
+    function addZero(t) {
       if (t < 10) t = '0' + t
       return t
     }
@@ -212,7 +214,7 @@ import peerjs from 'peerjs';
       message.innerHTML
   }
 
-  function clearMessages () {
+  function clearMessages() {
     message.innerHTML = ''
     addMessage('Msgs cleared')
   }

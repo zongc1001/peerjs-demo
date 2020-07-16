@@ -21,7 +21,7 @@ import peerjs from 'peerjs';
    * Sets up callbacks that handle any events related to our
    * peer object.
    */
-  function initialize () {
+  function initialize() {
     // Create own peer object with connection to shared PeerJS server
     // peer = new Peer('zc', {
     //   host: 'localhost',
@@ -69,6 +69,7 @@ import peerjs from 'peerjs';
         { url: 'stun:stun.voipstunt.com' },
         { url: 'stun:stun.voxgratia.org' },
         { url: 'stun:stun.xten.com' },
+        { url: 'turn:homeo@turn.bistri.com:80', credential: 'homeo' },
         {
           url: 'turn:numb.viagenie.ca',
           credential: 'muazkh',
@@ -84,7 +85,8 @@ import peerjs from 'peerjs';
           credential: 'JZEOEt2V3Qb0y27GRntt2u2PAYA=',
           username: '28224511:1379330808'
         }
-      ]
+      ],
+      sdpSemantics: 'unified-plan'
     })
 
 
@@ -112,7 +114,7 @@ import peerjs from 'peerjs';
         })
         return
       }
-      
+
       conn = c
       console.log('Connected to: ' + conn.peer)
       status.innerHTML = 'Connected'
@@ -142,7 +144,7 @@ import peerjs from 'peerjs';
    * Triggered once a connection has been achieved.
    * Defines callbacks to handle incoming data and connection events.
    */
-  function ready () {
+  function ready() {
     conn.on('data', function (data) {
       console.log('Data recieved: ' + data)
       var cueString = '<span class="cueMsg">Cue: </span>'
@@ -174,7 +176,7 @@ import peerjs from 'peerjs';
     })
   }
 
-  function go () {
+  function go() {
     standbyBox.className = 'display-box hidden'
     goBox.className = 'display-box go'
     fadeBox.className = 'display-box hidden'
@@ -182,7 +184,7 @@ import peerjs from 'peerjs';
     return
   }
 
-  function fade () {
+  function fade() {
     standbyBox.className = 'display-box hidden'
     goBox.className = 'display-box hidden'
     fadeBox.className = 'display-box fade'
@@ -190,7 +192,7 @@ import peerjs from 'peerjs';
     return
   }
 
-  function off () {
+  function off() {
     standbyBox.className = 'display-box hidden'
     goBox.className = 'display-box hidden'
     fadeBox.className = 'display-box hidden'
@@ -198,7 +200,7 @@ import peerjs from 'peerjs';
     return
   }
 
-  function reset () {
+  function reset() {
     standbyBox.className = 'display-box standby'
     goBox.className = 'display-box hidden'
     fadeBox.className = 'display-box hidden'
@@ -206,7 +208,7 @@ import peerjs from 'peerjs';
     return
   }
 
-  function addMessage (msg) {
+  function addMessage(msg) {
     var now = new Date()
     var h = now.getHours()
     var m = addZero(now.getMinutes())
@@ -215,7 +217,7 @@ import peerjs from 'peerjs';
     if (h > 12) h -= 12
     else if (h === 0) h = 12
 
-    function addZero (t) {
+    function addZero(t) {
       if (t < 10) t = '0' + t
       return t
     }
@@ -232,7 +234,7 @@ import peerjs from 'peerjs';
       message.innerHTML
   }
 
-  function clearMessages () {
+  function clearMessages() {
     message.innerHTML = ''
     addMessage('Msgs cleared')
   }
