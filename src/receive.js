@@ -41,7 +41,7 @@ import peerjs from 'peerjs';
     // })
 
     //连接阿里云服务器的, 配置了ssl
-    peer = new Peer('zccc', {
+    peer = new Peer('testrec', {
       host: 'zongchen.xyz',
       port: 9000,
       path: '/',
@@ -71,11 +71,18 @@ import peerjs from 'peerjs';
         { url: 'stun:stun.xten.com' },
         { url: 'stun:47.95.119.173:3478' },
         {
-          url: 'turn:47.95.119.173:3478',
+          url: 'turn:47.95.119.173:3478?transport=udp',
           username: 'zongchen',
           credential: 'onmyown0.',
           credentialType: 'password',
         },
+        {
+          url: 'turn:47.95.119.173:3478?transport=tcp',
+          username: 'zongchen',
+          credential: 'onmyown0.',
+          credentialType: 'password',
+        },
+        
         { url: 'turn:homeo@turn.bistri.com:80', credential: 'homeo' },
         {
           url: 'turn:numb.viagenie.ca',
