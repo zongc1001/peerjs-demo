@@ -48,6 +48,7 @@ import peerjs from 'peerjs';
       key: 'peerjs',
       secure: true,
       debug: 3,
+      iceTransportPolicy: 'relay',
       iceServers: [
         { url: 'stun:stun.turnservers.com:3478' },
         { url: 'stun:stun01.sipphone.com' },
