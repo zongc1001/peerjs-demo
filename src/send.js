@@ -77,8 +77,7 @@ import peerjs from 'peerjs';
           credential: 'JZEOEt2V3Qb0y27GRntt2u2PAYA=',
           username: '28224511:1379330808'
         }
-      ],
-      sdpSemantics: 'unified-plan'
+      ]
     })
 
     peer.on('open', function (id) {
