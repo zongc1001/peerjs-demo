@@ -254,6 +254,7 @@ import peerjs from 'peerjs';
   })
   // Send message
   sendButton.addEventListener('click', function () {
+    console.log(peer);
     if (conn && conn.open) {
       var msg = sendMessageBox.value
       sendMessageBox.value = ''
