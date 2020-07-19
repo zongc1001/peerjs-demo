@@ -22,25 +22,6 @@ import peerjs from 'peerjs';
    * peer object.
    */
   function initialize() {
-    // Create own peer object with connection to shared PeerJS server
-    // peer = new Peer('zc', {
-    //   host: 'localhost',
-    //   port: 9000,
-    //   path: '/myapp',
-    //   key: 'peerjs',
-    //   // secure: true,
-    //   debug: 3,
-    // })
-
-    // peer = new Peer('zc', {
-    //   host: '47.95.119.173',
-    //   port: 443,
-    //   path: '/',
-    //   secure: false,
-    //   debug: 2
-    // })
-
-    //连接阿里云服务器的, 配置了ssl
     peer = new Peer('testrec0123456789', {
       host: 'zongchen.xyz',
       port: 9000,
@@ -123,6 +104,7 @@ import peerjs from 'peerjs';
       }
 
       conn = c
+      peerId = conn.peer;
       console.log('Connected to: ' + conn.peer)
       status.innerHTML = 'Connected'
       ready()
@@ -265,6 +247,9 @@ import peerjs from 'peerjs';
       console.log('Sent: ' + msg)
       addMessage('<span class="selfMsg">Self: </span>' + msg)
     } else {
+      conn = peer.connect(peerId, {
+        reliable: true,
+      })
       console.log('Connection is closed')
     }
   })

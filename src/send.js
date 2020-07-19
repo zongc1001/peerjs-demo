@@ -182,7 +182,10 @@ import peerjs from 'peerjs';
       console.log(sigName + ' signal sent')
       addMessage(cueString + sigName)
     } else {
-      console.log('Connection is closed')
+      console.log('Connection is closed');
+      conn = peer.connect(recvIdInput.value, {
+        reliable: true,
+      });
     }
   }
 
