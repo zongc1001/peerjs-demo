@@ -53,7 +53,7 @@ import peerjs from 'peerjs';
         { url: 'stun:stun.xten.com' },
         { url: 'stun:47.95.119.173:3478' },
         {
-          url: 'turn:47.95.119.173:3478?transport=udp',
+          urls: ['turn:47.95.119.173:3478?transport=udp'],
           username: 'zongchen',
           credential: 'onmyown0.',
         },
