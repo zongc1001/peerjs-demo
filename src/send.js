@@ -24,7 +24,7 @@ import peerjs from 'peerjs';
    */
   function initialize() {
     // Create own peer object with connection to shared PeerJS server
-    peer = new Peer('testsend', {
+    peer = new Peer('testsend12345678', {
       host: 'zongchen.xyz',
       port: 9000,
       path: '/',

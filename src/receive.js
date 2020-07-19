@@ -41,7 +41,7 @@ import peerjs from 'peerjs';
     // })
 
     //连接阿里云服务器的, 配置了ssl
-    peer = new Peer('testrec', {
+    peer = new Peer('testrec0123456789', {
       host: 'zongchen.xyz',
       port: 9000,
       path: '/',
