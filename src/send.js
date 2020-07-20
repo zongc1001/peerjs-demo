@@ -15,14 +15,34 @@ import peerjs from 'peerjs';
   var clearMsgsButton = document.getElementById('clearMsgsButton')
   var connectButton = document.getElementById('connect-button')
   var cueString = '<span class="cueMsg">Cue: </span>'
-
+  var iceServers = null;
   /**
    * Create the Peer object for our end of the connection.
    *
    * Sets up callbacks that handle any events related to our
    * peer object.
    */
+  function initializeIceServer() {
+    let xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = function ($evt) {
+      if (xhr.readyState == 4 && xhr.status == 200) {
+        let res = JSON.parse(xhr.responseText);
+        console.log("response: ", res);
+        iceServers = res.v.iceServers;
+        console.log(iceServers);
+        initialize();
+      }
+    }
+    xhr.open("PUT", "https://global.xirsys.net/_turn/circle", true);
+    xhr.setRequestHeader("Authorization", "Basic " + btoa("zongchen:ef651bc2-ca5c-11ea-a646-0242ac150003"));
+    xhr.setRequestHeader("Content-Type", "application/json");
+    xhr.send(JSON.stringify({ "format": "urls" }));
+  }
+
   function initialize() {
+    //获取iceServer
+
+
     // Create own peer object with connection to shared PeerJS server
     peer = new Peer('testsend', {
       host: 'zongchen.xyz',
@@ -32,56 +52,7 @@ import peerjs from 'peerjs';
       secure: true,
       debug: 3,
       iceTransportPolicy: 'relay',
-      iceServers: [
-        { url: 'stun:stun.turnservers.com:3478' },
-        { url: 'stun:stun01.sipphone.com' },
-        { url: 'stun:stun.ekiga.net' },
-        { url: 'stun:stun.fwdnet.net' },
-        { url: 'stun:stun.ideasip.com' },
-        { url: 'stun:stun.iptel.org' },
-        { url: 'stun:stun.rixtelecom.se' },
-        { url: 'stun:stun.schlund.de' },
-        { url: 'stun:stun.l.google.com:19302' },
-        { url: 'stun:stun1.l.google.com:19302' },
-        { url: 'stun:stun2.l.google.com:19302' },
-        { url: 'stun:stun3.l.google.com:19302' },
-        { url: 'stun:stun4.l.google.com:19302' },
-        { url: 'stun:stunserver.org' },
-        { url: 'stun:stun.softjoys.com' },
-        { url: 'stun:stun.voiparound.com' },
-        { url: 'stun:stun.voipbuster.com' },
-        { url: 'stun:stun.voipstunt.com' },
-        { url: 'stun:stun.voxgratia.org' },
-        { url: 'stun:stun.xten.com' },
-        { url: 'stun:47.95.119.173:3478' },
-        { url: 'turn:0.peerjs.com:3478' },
-        {
-          url: 'turn:47.95.119.173:3478',
-          username: 'zongchen',
-          credential: 'onmyown0.',
-        },
-
-        {
-          url: 'turn:47.95.119.173:3478?transport=tcp',
-          username: 'zongchen:onmyown0.',
-        },
-        { url: 'turn:homeo@turn.bistri.com:80', credential: 'homeo' },
-        {
-          url: 'turn:numb.viagenie.ca',
-          credential: 'muazkh',
-          username: 'webrtc@live.com'
-        },
-        {
-          url: 'turn:192.158.29.39:3478?transport=udp',
-          credential: 'JZEOEt2V3Qb0y27GRntt2u2PAYA=',
-          username: '28224511:1379330808'
-        },
-        {
-          url: 'turn:192.158.29.39:3478?transport=tcp',
-          credential: 'JZEOEt2V3Qb0y27GRntt2u2PAYA=',
-          username: '28224511:1379330808'
-        }
-      ]
+      iceServers: iceServers,
     })
 
     peer.on('open', function (id) {
@@ -256,5 +227,5 @@ import peerjs from 'peerjs';
   connectButton.addEventListener('click', join)
 
   // Since all our callbacks are setup, start the process of obtaining an ID
-  initialize()
+  initializeIceServer()
 })()
