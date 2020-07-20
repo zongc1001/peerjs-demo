@@ -81,6 +81,7 @@ import peerjs from 'peerjs';
       }
 
       conn = c
+      peerId = conn.peer;
       console.log('Connected to: ' + conn.peer)
       status.innerHTML = 'Connected'
       ready()
@@ -223,6 +224,9 @@ import peerjs from 'peerjs';
       console.log('Sent: ' + msg)
       addMessage('<span class="selfMsg">Self: </span>' + msg)
     } else {
+      conn = peer.connect(peerId, {
+        reliable: true,
+      })
       console.log('Connection is closed')
     }
   })

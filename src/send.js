@@ -44,7 +44,7 @@ import peerjs from 'peerjs';
 
 
     // Create own peer object with connection to shared PeerJS server
-    peer = new Peer('testsend', {
+    peer = new Peer('testsend12345678', {
       host: 'zongchen.xyz',
       port: 9000,
       path: '/',
@@ -52,7 +52,7 @@ import peerjs from 'peerjs';
       secure: true,
       debug: 3,
       iceTransportPolicy: 'relay',
-      iceServers: iceServers,
+      iceServers: iceServers
     })
 
     peer.on('open', function (id) {
@@ -154,7 +154,10 @@ import peerjs from 'peerjs';
       console.log(sigName + ' signal sent')
       addMessage(cueString + sigName)
     } else {
-      console.log('Connection is closed')
+      console.log('Connection is closed');
+      conn = peer.connect(recvIdInput.value, {
+        reliable: true,
+      });
     }
   }
 
