@@ -22,22 +22,22 @@ import peerjs from 'peerjs';
    * Sets up callbacks that handle any events related to our
    * peer object.
    */
-  function initializeIceServer() {
-    let xhr = new XMLHttpRequest();
-    xhr.onreadystatechange = function ($evt) {
-      if (xhr.readyState == 4 && xhr.status == 200) {
-        let res = JSON.parse(xhr.responseText);
-        console.log("response: ", res);
-        iceServers = res.v.iceServers;
-        console.log(iceServers);
-        initialize();
-      }
-    }
-    xhr.open("PUT", "https://global.xirsys.net/_turn/circle", true);
-    xhr.setRequestHeader("Authorization", "Basic " + btoa("zongchen:ef651bc2-ca5c-11ea-a646-0242ac150003"));
-    xhr.setRequestHeader("Content-Type", "application/json");
-    xhr.send(JSON.stringify({ "format": "urls" }));
-  }
+  // function initializeIceServer() {
+  //   let xhr = new XMLHttpRequest();
+  //   xhr.onreadystatechange = function ($evt) {
+  //     if (xhr.readyState == 4 && xhr.status == 200) {
+  //       let res = JSON.parse(xhr.responseText);
+  //       console.log("response: ", res);
+  //       iceServers = res.v.iceServers;
+  //       console.log(iceServers);
+  //       initialize();
+  //     }
+  //   }
+  //   xhr.open("PUT", "https://global.xirsys.net/_turn/circle", true);
+  //   xhr.setRequestHeader("Authorization", "Basic " + btoa("zongchen:ef651bc2-ca5c-11ea-a646-0242ac150003"));
+  //   xhr.setRequestHeader("Content-Type", "application/json");
+  //   xhr.send(JSON.stringify({ "format": "urls" }));
+  // }
 
   function initialize() {
 
@@ -235,5 +235,5 @@ import peerjs from 'peerjs';
   connectButton.addEventListener('click', join)
 
   // Since all our callbacks are setup, start the process of obtaining an ID
-  initializeIceServer()
+  initialize()
 })()
