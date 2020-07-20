@@ -51,12 +51,15 @@ import peerjs from 'peerjs';
       key: 'peerjs',
       secure: true,
       debug: 3,
-      iceServers: [
-        {
-          urls: iceServers.urls, username: iceServers.username,
-          credential: iceServers.credential
-        }
-      ],
+      config: {
+        "iceServers": [
+          {
+            urls: iceServers.urls,
+            username: iceServers.username,
+            credential: iceServers.credential
+          }
+        ]
+      }
     })
 
     peer.on('open', function (id) {

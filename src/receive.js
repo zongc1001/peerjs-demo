@@ -40,7 +40,6 @@ import peerjs from 'peerjs';
    * peer object.
    */
   function initialize() {
-    
 
     //连接阿里云服务器的, 配置了ssl
     peer = new Peer('testrec', {
@@ -50,12 +49,16 @@ import peerjs from 'peerjs';
       key: 'peerjs',
       secure: true,
       debug: 3,
-      iceServers: [
-        {
-          urls: iceServers.urls, username: iceServers.username,
-          credential: iceServers.credential
-        }
-      ],
+      config: {
+        "iceServers": [
+          {
+            urls: iceServers.urls,
+            username: iceServers.username,
+            credential: iceServers.credential
+          }
+        ]
+      }
+
     })
 
 
@@ -228,7 +231,7 @@ import peerjs from 'peerjs';
       console.log('Sent: ' + msg)
       addMessage('<span class="selfMsg">Self: </span>' + msg)
     } else {
-      
+
       console.log('Connection is closed')
     }
   })
