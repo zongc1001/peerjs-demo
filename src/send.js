@@ -40,7 +40,7 @@ import peerjs from 'peerjs';
   }
 
   function initialize() {
-    
+
 
     // Create own peer object with connection to shared PeerJS server
     peer = new Peer('testsend12345678', {
@@ -52,13 +52,12 @@ import peerjs from 'peerjs';
       debug: 3,
       config: {
         "iceServers": [
-          {url: "stun:stun.1.google.com:19302"},
-          {url: "stun:stun1.1.google.com:19302"},
+          { url: 'stun:47.95.119.173:3478' },
           {
-            urls: iceServers.urls,
-            username: iceServers.username,
-            credential: iceServers.credential
-          }
+            url: 'turn:47.95.119.173:3478',
+            username: 'zongchen',
+            credential: 'onmyown0.',
+          },
         ]
       }
     })
@@ -163,7 +162,7 @@ import peerjs from 'peerjs';
       addMessage(cueString + sigName)
     } else {
       console.log('Connection is closed');
-      
+
     }
   }
 
